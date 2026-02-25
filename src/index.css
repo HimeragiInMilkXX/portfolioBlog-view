@@ -1,0 +1,34 @@
+@import 'tailwindcss';
+
+* {
+
+	font-family: "Outfit", "Inter", sans-serif;
+
+}
+
+body, html {
+
+	scrollbar-width: none;
+	position: relative;
+
+}
+
+#root {
+
+	@apply min-h-dvh flex flex-col justify-between relative
+
+}
+
+.editableDiv:empty:not(:focus)::before {
+
+	content: attr(data-placeholder);
+	
+	@apply text-black/70
+
+}
+
+.absoluteCenter {
+
+	@apply top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2
+
+}
