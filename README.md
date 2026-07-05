@@ -1,8 +1,8 @@
 # Oscar Portfolio Blog（AWS ホスティング）
 
-このリポジトリは、AWS 上にホスティングしているポートフォリオ用ブログサイトのフロントエンドコードです。  
+このリポジトリは、Github 上にホスティングしているポートフォリオ用ブログサイトのフロントエンドコードです。  
 実際のサイトはこちらからご覧いただけます：  
-https://d1ulrv6ofvvsmv.cloudfront.net/
+https://himeragiinmilkxx.github.io/portfolioBlog-view/
 
 バックエンドのソースコードはこちら：  
 https://github.com/HimeragiInMilkXX/portfolioBlog-api
