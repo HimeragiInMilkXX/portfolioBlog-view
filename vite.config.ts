@@ -4,12 +4,8 @@ import solidPlugin from 'vite-plugin-solid';
 import devtools from 'solid-devtools/vite';
 
 export default defineConfig({
+  base: '/portfolioBlog-view/',
   plugins: [devtools(), solidPlugin(), tailwindcss()],
-  define: {
-
-    DOMAIN: JSON.stringify('http://localhost:8000')
-
-  },
   server: {
     port: 3000,
   },

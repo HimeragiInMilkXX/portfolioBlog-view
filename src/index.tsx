@@ -17,33 +17,38 @@ const root = document.getElementById('root');
 gsap.registerPlugin(gsap)
 gsap.registerPlugin(TextPlugin)
 
+if (import.meta.env.VITE_MODE === 'production') {
+	console.log = () => {};
+	console.error = () => {};
+}
+
 if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
   	throw new Error(
 		'Root element not found. Did you forget to add it to your index.html? Or maybe the id attribute got misspelled?',
 	);
 }
 
-initCsrf();
-me();
+await initCsrf();
+await me();
 
 render(
 
 	() => (
 
-		<Router>
+		<Router base={import.meta.env.BASE_URL}>
 
 			<Route path="/" component={DefaultLayout}>
-			
+
 				<Route path="/" component={Home}/>
 				<Route path="/post">
-				
+
 					<Route path="/view/:id" component={PostView}></Route>
 
 				</Route>
 
 			</Route>
 
-			<Route path="/admin" component={Admin}/>
+			{ import.meta.env.VITE_MODE === 'development' && <Route path="/admin" component={Admin}/>}
 
 			<Route path="*404" component={NotFound}/>
 
