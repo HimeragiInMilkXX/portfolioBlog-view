@@ -1,36 +1,24 @@
-## Usage
+# Oscar Portfolio Blog（AWS ホスティング）
 
-Those templates dependencies are maintained via [pnpm](https://pnpm.io) via `pnpm up -Lri`.
+このリポジトリは、AWS 上にホスティングしているポートフォリオ用ブログサイトのフロントエンドコードです。  
+実際のサイトはこちらからご覧いただけます：  
+https://d1ulrv6ofvvsmv.cloudfront.net/
 
-This is the reason you see a `pnpm-lock.yaml`. That being said, any package manager will work. This file can be safely be removed once you clone a template.
+バックエンドのソースコードはこちら：  
+https://github.com/HimeragiInMilkXX/portfolioBlog-api
 
-```bash
-$ npm install # or pnpm install or yarn install
-```
+## ブログについて
 
-### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
+もし記事が投稿されていれば、お読みいただけると大変うれしいです。  
+ただし、現在は就職活動が忙しく、なかなか記事を書く時間が取れていません。
 
-## Available Scripts
+サイト自体は完成しており、閲覧専用のブログとして動作します。  
+読者はアカウント登録を行うことで、記事への「いいね」やコメント投稿が可能です。
 
-In the project directory, you can run:
+ブログ記事は、ローカル環境のテキストエディタで執筆したものを公開しています。
 
-### `npm run dev` or `npm start`
+## 使用技術
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-
-### `npm run build`
-
-Builds the app for production to the `dist` folder.<br>
-It correctly bundles Solid in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-## Deployment
-
-You can deploy the `dist` folder to any static host provider (netlify, surge, now, etc.)
-
-## This project was created with the [Solid CLI](https://github.com/solidjs-community/solid-cli)
+- フロントエンド：SolidJS, Tiptap, Kobalte, TypeScript, Tailwind CSS  
+- バックエンド：Django  
+- デザイン：Figma  
