@@ -13,7 +13,7 @@ const Header = () => {
 
             <ul class="flex items-center text-2xl h-full">
 
-                <NavItem text="Portfolio" href="https://d2qjfmxptfqch4.cloudfront.net/"/>
+                <NavItem text="Portfolio" href="https://himeragiinmilkxx.github.io/portfolioSite/"/>
 
                 <Avatar classes="items-center aspect-square rounded-full h-12"/>
 
