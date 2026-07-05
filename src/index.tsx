@@ -48,7 +48,7 @@ render(
 
 			</Route>
 
-			{ import.meta.env.VITE_MODE === 'development' && <Route path="/admin" component={Admin}/>}
+			<Route path="/admin" component={Admin}/>
 
 			<Route path="*404" component={NotFound}/>
 
