@@ -1,10 +1,11 @@
 import { Component, createEffect, createSignal, on } from "solid-js";
 import { authState } from "../../states";
 import { Button } from "@kobalte/core/button";
+import { publicAsset } from "../../exports";
 
 const CommentField: Component<{ classes?: string, postComment: ( content: string ) => Promise<void> }> = ({ classes = "", postComment }) => {
 
-    const [ url, setUrl ] = createSignal<string>("/default.jpg")
+    const [ url, setUrl ] = createSignal<string>(publicAsset("default.jpg"))
     const [ editing, setEditing ] = createSignal<boolean>(false)
 
     let inputField: HTMLDivElement | undefined;

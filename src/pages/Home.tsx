@@ -1,6 +1,6 @@
 import { createSignal, For, onMount } from "solid-js";
 import { getPosts } from "../utils/post";
-import { PostData } from "../exports";
+import { PostData, publicAsset } from "../exports";
 import gsap from "gsap"
 import { SteppedEase } from "gsap";
 import { Icon } from "@iconify-icon/solid";
@@ -12,9 +12,11 @@ export default function Home() {
 	const [ posts, setPosts ] = createSignal<PostData[]>();
 
 
-	const cancelScroll = (e) => {e.preventDefault();}
+	const cancelScroll = (e: Event) => {e.preventDefault();}
 	window.scrollTo(0, 0);
 	window.addEventListener("wheel", cancelScroll, { passive: false } );
+	window.addEventListener("scroll", cancelScroll, { passive: false } );
+	window.addEventListener("touchmove", cancelScroll, { passive: false });
 
 	const fetchPost = async () => {
 
@@ -71,6 +73,8 @@ export default function Home() {
 		} ).eventCallback( 'onComplete', () => {
 			overlay.remove();
 			window.removeEventListener("wheel", cancelScroll)
+			window.removeEventListener("scroll", cancelScroll)
+			window.removeEventListener("touchmove", cancelScroll)
 		} )
 
 	} );
@@ -85,7 +89,7 @@ export default function Home() {
 
 			<section class="w-full h-[70vh] overflow-hidden relative">
 
-				<img src="/default.jpg" alt="" class="absolute w-full opacity-40 object-cover h-full hover:opacity-50! hover:scale-[101%] transition-all!"/>
+				<img src={publicAsset("default.jpg")} alt="" class="absolute w-full opacity-40 object-cover h-full hover:opacity-50! hover:scale-[101%] transition-all!"/>
 
 				<div class="absolute z-101 pointer-events-none flex flex-col items-center justify-center left-1/2 -translate-x-1/2 h-dvh" ref={container}>
 					<h2 ref={title} class="tracking-tight md:text-9xl text-6xl font-medium whitespace-nowrap"></h2>

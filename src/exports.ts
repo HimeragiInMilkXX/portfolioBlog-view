@@ -101,6 +101,11 @@ export type CommentItem = {
 
 export const constructUrlToImage = ( path: string ): string => { return `${import.meta.env.VITE_BACKEND_DOMAIN}${path}` }
 
+export const publicAsset = (path: string): string => {
+    const cleanPath = path.startsWith("/") ? path.slice(1) : path;
+    return `${import.meta.env.BASE_URL}${cleanPath}`;
+}
+
 export const splitDate = ( date: string | undefined ): [ date: string, time: string ] => {
 
     const d = dayjs( date );
@@ -111,9 +116,10 @@ export const splitDate = ( date: string | undefined ): [ date: string, time: str
 }
 
 // API
-const getCsrfToken = () => {
-    const match = document.cookie.match(/csrftoken=([^;]+)/);
-    return match ? match[1] : null;
+let _csrfToken: string | null = null;
+
+export const setCsrfToken = (token: string) => {
+    _csrfToken = token;
 };
 
 export const api = axios.create({
@@ -122,9 +128,8 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-    const token = getCsrfToken();
-    if (token) {
-        config.headers["X-CSRFToken"] = token;
+    if (_csrfToken) {
+        config.headers["X-CSRFToken"] = _csrfToken;
     }
     return config;
 });

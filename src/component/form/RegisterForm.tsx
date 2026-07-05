@@ -1,6 +1,6 @@
-import { createForm, zodForm } from "@modular-forms/solid";
-import { Component, Setter } from "solid-js";
-import { RegisterMForm, RegisterSchema } from "../../exports";
+import { createForm, reset, setValues, zodForm } from "@modular-forms/solid";
+import { Component, createSignal, For, Setter } from "solid-js";
+import { RegisterMForm, RegisterSchema, publicAsset } from "../../exports";
 import { TextField } from "@kobalte/core/text-field";
 import { Button } from "@kobalte/core/button";
 import { register } from "../../utils/auth";
@@ -9,13 +9,21 @@ const RegisterForm: Component<{ classes?: string, setForm: ( value: "login" | "r
 
     const [ registerForm, { Form, Field } ] = createForm<RegisterMForm>({ validate: zodForm(RegisterSchema)});
 
+    const [ error, setError ] = createSignal<{ email?: string[], username?: string[]}>({})
+
     const handleSubmit = async ( values: RegisterMForm ) => {
 
         try {
             const succeed = await register( values )
             console.log( succeed )
+
+            if( succeed ) {
+                reset( registerForm, { keepErrors: false, initialValues: { email: "", username: "", password: ""} } )
+                setError({})
+            }
         } catch( err: any ) {
-            console.error( err );
+            setError( err );
+            console.log( err );
         }
 
     }
@@ -26,7 +34,7 @@ const RegisterForm: Component<{ classes?: string, setForm: ( value: "login" | "r
 
             <section class="flex flex-col gap-3 items-center mb-3">
 
-                <img src="/mylogo.svg" alt="" class="h-30 object-contain aspect-square w-fit" />
+                <img src={publicAsset("mylogo.svg")} alt="" class="h-30 object-contain aspect-square w-fit" />
                 
                 <div class="flex flex-col gap-1.5 items-center">
 
@@ -43,7 +51,7 @@ const RegisterForm: Component<{ classes?: string, setForm: ( value: "login" | "r
 
                     <TextField class="flex flex-col gap-1.5 w-full">
                         <TextField.Label class="flex gap-3"> Email* {field.error && <div class="text-red-400">{field.error}</div>} </TextField.Label>
-                        <TextField.Input placeholder="Enter a email" {...props} required class="outline-none border border-black/50 py-3 px-6 rounded-full"/>
+                        <TextField.Input value={field.value} placeholder="Enter a email" {...props} required class="outline-none border border-black/50 py-3 px-6 rounded-full"/>
                     </TextField>
 
                 }
@@ -56,7 +64,7 @@ const RegisterForm: Component<{ classes?: string, setForm: ( value: "login" | "r
 
                     <TextField class="flex flex-col gap-1.5 w-full">
                         <TextField.Label class="flex gap-3"> Username* {field.error && <div class="text-red-400">{field.error}</div>} </TextField.Label>
-                        <TextField.Input placeholder="Give a cool name..." {...props} required class="outline-none border border-black/50 py-3 px-6 rounded-full"/>
+                        <TextField.Input value={field.value} placeholder="Give a cool name..." {...props} required class="outline-none border border-black/50 py-3 px-6 rounded-full"/>
                     </TextField>
 
                 }
@@ -69,7 +77,7 @@ const RegisterForm: Component<{ classes?: string, setForm: ( value: "login" | "r
 
                     <TextField class="flex flex-col gap-1.5 w-full">
                         <TextField.Label class="flex gap-3"> Password* {field.error && <div class="text-red-400">{field.error}</div>} </TextField.Label>
-                        <TextField.Input type="password" placeholder="Enter a password" {...props} required class="outline-none border border-black/50 py-3 px-6 rounded-full"/>
+                        <TextField.Input value={field.value} type="password" placeholder="Enter a password" {...props} required class="outline-none border border-black/50 py-3 px-6 rounded-full"/>
                     </TextField>
 
                 }
@@ -77,6 +85,14 @@ const RegisterForm: Component<{ classes?: string, setForm: ( value: "login" | "r
             </Field>
 
             <Button type="submit" class="w-full bg-black text-white text-xl rounded-full hover:bg-black/75 py-3 mt-3"> Register </Button>
+
+            <div class="text-center w-full text-red-400">
+
+                <For each={Object.values(error())}>
+                    { (item) => <p> {item[0]} </p> }
+                </For>
+
+            </div>
 
         </Form>
 
